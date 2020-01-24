@@ -1,0 +1,237 @@
+package stockControlProgram;
+import java.util.*;
+public class StockControlProgram
+{
+	
+	static String[][]products;
+	static int size = 0;
+	static Scanner scan;
+	
+
+	public static void main(String[] args)
+	{
+		
+		
+		products = new String[100][4];
+		
+		//scanner to read data
+		scan=new Scanner(System .in);
+		int option;
+		boolean closeApplication = false;
+		
+		
+		do 
+		{
+			System.out.println("\n*** Select from Menu***\n"+
+		                           "1. Add a product \n"+
+					                "2. Display product details\n"+
+		                            "3. Update product details\n"+
+					                "4. Dispaly products with low stock\n"+
+		                            "5. Delete a product\n"+
+					                "6. Display details of all products\n"+
+		                            "Select Option: ");
+			
+			option=scan.nextInt();
+			String productName;
+			int productIndex;
+			
+			
+			if(option==1) 
+			{
+				addProduct();
+			}
+			
+			else if(option==2) 
+			{
+				
+				scan.nextLine();
+				System.out.println("\n* Displaying Product Details *");
+				System.out.print("Enter Product Name: ");
+				productName = scan.nextLine();
+				productIndex=getProductIndex(productName);
+				if(productIndex==-1)
+				{
+					System.out.println(">Product"+productName+"does not found.");
+				}else 
+				{
+					printProduct(productIndex);
+				}
+			
+			}
+			
+			else if(option==3)
+			{
+				updateProduct();
+			}
+			
+			else if(option==4) 
+			{
+				System.out.println("\n* Displaying products with Low Stock* ");
+				
+				for(int i =0; i < size; i++) 
+				{
+					if(Integer.parseInt(products[i][2])<=Integer.parseInt(products[i][3])) 
+					{
+						printProduct(i);
+					}
+				}
+			}
+			
+			else if (option==5) 
+			{
+				
+				scan.nextLine();
+				System.out.println("\n* Deleting the Product *");
+				System.out.print("Enter Product Name: ");
+				productName = scan.nextLine();
+				productIndex = getProductIndex(productName);
+				if(productIndex == -1)
+				{
+					System.out.println("> Product"+productName+" does not found.");
+				}else {
+					
+					for(int i = productIndex; i<products.length -1;i++) 
+					{
+						products[i] = products[i+1];
+					}
+				products[products.length -1]=null;
+				size--;
+				System.out.println("> Product"+productName+" deleted successfully.");
+					}
+				}
+				
+		else if (option==6)
+		{
+			System.out.println("\n* Dispalying the Product Details *");
+			for(int i = 0; i < size;i++)
+			{
+				printProduct(i);
+			}
+		}
+			else
+				closeApplication = true;
+		}while(!closeApplication );
+		
+		System.out.println("\nThank you for using the program. ");
+		scan.close();
+	}
+
+			//adding a new product.
+			private static void addProduct() 
+			{
+				
+				System.out.println("\n* Adding a Product *");
+				System.out.print("Enter Product ID: ");
+				int id = scan.nextInt();
+				//clearing buffer.
+				scan.nextLine();
+				System.out.print("Enter Product Name: ");
+				String name = scan.nextLine();
+				System.out.print("Enter Product Stock Level: ");
+				int stock = scan.nextInt();
+				System.out.print("Enter Product Reorder Level: ");
+				int reorder = scan.nextInt();
+				
+				//checking for negative values
+				if(id>=0 && stock>=0 && reorder>=-0)
+				{
+					//checking if id already exist or not
+					if(getProductIndex(name)==-1) 
+					{
+						products[size]=new String[] {id+"",name,stock+"", reorder+""};
+						size++;
+						System.out.println("> Product added successfully.");
+						}else 
+						{
+							System.out.println("=> Product name "+name+"already exists.");
+						}
+					}else
+					{
+						System.out.println("=> Integer values should not be negative.");
+					}
+						
+				}
+				//updating a product.
+				private static void updateProduct()
+				{
+					System.out.println("\n* Update a Product *");
+					System.out.print("Enter Product Name: ");
+					//clearing buffer.
+					scan.nextLine();
+					String productName = scan.nextLine();
+					int productIndex = getProductIndex(productName);
+					if(productIndex == -1)
+					{
+						System.out.println("> Product "+productName+"does not found.");
+					}else 
+					{
+						System.out.print("Enter Updated Product ID:");
+						int id = scan.nextInt();
+						//clearing buffer.
+						scan.nextLine();
+						System.out.print("Enter Updated Product Name:");
+						String name = scan.nextLine();
+						System.out.print("Enter Updated Product Stock Level:");
+						int stock = scan.nextInt();
+						System.out.print("Enter Updated Product Level:");
+						int reorder = scan.nextInt();
+						//checking for negative values
+						if(id>=0 && stock>=0 && reorder >=0)
+						{
+							//checking if id already exists or not.
+							if(getProductIndex(name) ==-1)
+							{
+								products[productIndex][0] = id+"";
+								products[productIndex][1] = name+"";
+								products[productIndex][2] = stock+"";
+								products[productIndex][3] = reorder+"";
+								System.out.println("> Product updated successfully.");
+							}else 
+							{
+								System.out.println("=> Product name"+name+"already exists.");
+							}
+						}else {
+							System.out.println("=> Integer values should not be negative. ");
+						}
+					}
+				}
+						//printing the product with given index.
+				private static void printProduct(int index)
+				{
+					if (validateIndex(index)) 
+					{
+						System.out.println("\nProduct ID:"+products[index][0]
+								+"\n"+"Product Name:"+products[index][1]+"\n"
+								+"Product Stock Level: "+products[index][2]+"\n"
+								+"Product Reorder Level: "+products[index][3]);
+										
+					   }
+				}
+				//finding index of product using name.
+				private static int getProductIndex(String name) 
+				{
+					//iterating through products
+					for(int i = 0; i < size; i++)
+					{
+						if(products[i][1].equalsIgnoreCase(name)) 
+						{
+							//returning the index
+							return i;
+						}
+					}
+					return -1;
+				}
+				//checking if the given index is correct or not.
+				private static boolean validateIndex(int index)
+				{
+					if(index >= 0 && index < size) 
+					{
+						return true;
+					}else
+					{
+						System.out.println("=> Index"+index+"is not valid.");
+						return false;
+					
+					}
+				}
+	}
