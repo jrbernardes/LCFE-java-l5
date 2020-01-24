@@ -1,0 +1,105 @@
+package lcfeFirstJavaProject1;
+import java.util.Scanner; //importing Scanner class to real values from the user
+
+public class lcfeFirstJavaProject1 {
+
+	public static void main(String[] args) {
+		// setting the Scanner to use as "sc."
+		Scanner sc = new Scanner(System.in);
+		
+		int userSelectedOption; // variable created to store the user's desired option 
+		double userCurrencyValue; // variable created to store the user's currency value to be converted
+		double euroToGbp = 0.865, gbpToEuro = 1.155, gbpToDollar = 1.287, dollarToGbp = 0.776, euroToDollar = 1.114, dollarToEuro = 0.897;
+		// the above variables are storing convertion rates ready to use just multiplying with the userCurrencyValue
+		
+		// the following are the output to the user with the options as an aesthetically pleasing manner
+		System.out.println("##########################################################");
+		System.out.println("######                                              ######");
+		System.out.println("######  Welcome to the Currency Converter Program!  ######");
+		System.out.println("######                                              ######");
+		System.out.println("##########################################################");
+		System.out.println("\n\nPlease select one of the options below and type its number:\n\n"
+				+ "   1 - Convert Euro to GBP\n" + 
+				"   2 - Convert GBP to Euro\n" + 
+				"   3 - Convert Euro to US Dollars\n" + 
+				"   4 - Convert US Dollars to Euro\n" + 
+				"   5 - Convert GBP to US Dollars\n" + 
+				"   6 - Convert US Dollars to GBP\n");
+		
+		userSelectedOption = sc.nextInt(); // reading the user option
+		
+		//System.out.println(userSelectedOption); // was used when developing to test if the variable was correctly stored
+		
+		// all the following ifs are to test the value of the variables to then print the result
+		// It is two ifs per option, one else per option and the last else printing the invalid message
+		if (userSelectedOption == 1) {
+			System.out.print("You have selected the option 1, to convert from Euro to GBP!\nNow please enter the desired value in Euro: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " Euro(s) is worths " + (userCurrencyValue*euroToGbp) + " GBP(s).");
+			}
+		}
+		else if (userSelectedOption == 2) {
+			System.out.print("You have selected the option 2, to convert from GBP to Euro!\nNow please enter the desired value in GBP: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " GBP(s) worths " + (userCurrencyValue*gbpToEuro) + " Euro(s).");
+			}
+		}
+		else if (userSelectedOption == 3) {
+			System.out.print("You have selected the option 3, to convert from Euro to US Dollars!\nNow please enter the desired value in Euro: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " Euro(s) worths " + (userCurrencyValue*euroToDollar) + " US Dollar(s).");
+			}
+		}
+		else if (userSelectedOption == 4) {
+			System.out.print("You have selected the option 4, to convert from US Dollars to Euro!\nNow please enter the desired value in US Dollar: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " US Dollar(s) worths " + (userCurrencyValue*dollarToEuro) + " Euro(s).");
+			}
+		}
+		else if (userSelectedOption == 5) {
+			System.out.print("You have selected the option 5, to convert from GBP to US Dollars!\nNow please enter the desired value in GBP: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " GBP(s) worths " + (userCurrencyValue*gbpToDollar) + " US Dollar(s).");
+			}
+		}
+		else if (userSelectedOption == 6) {
+			System.out.print("You have selected the option 6, to convert from US Dollars to GBP!\nNow please enter the desired value in US Dollars: ");
+			userCurrencyValue = sc.nextDouble();
+			if (userCurrencyValue <= 0 ) {
+				System.out.println("The value you entered is Zero or negative. Please try again with a positive valid number!");
+			} 
+			else {
+				System.out.println("\n" + userCurrencyValue + " US Dollar(s) worths " + (userCurrencyValue*dollarToGbp) + " GBP(s).");
+			}
+		} 
+		else {
+			System.out.println("You have selected and invalid option. Please try again using numbers from 1 to 6 only!\n");
+		}
+		System.out.println("\n\n##################################################################");
+		System.out.println("######                                                      ######");
+		System.out.println("######   Thanks for using the Currency Converter Program!   ######\n######                                                      ######\n######   If you want to use again please just restart it!   ######");
+		System.out.println("######                                                      ######");
+		System.out.println("##################################################################");
+	}
+
+}
