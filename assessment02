@@ -1,0 +1,140 @@
+package lcfeSecondJavaProject2;
+
+import java.util.Scanner; //importing Scanner class to real values from the user
+
+public class lcfeSecondJavaProject2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in); // Scanner function to read user entries
+		int listSize = 5; // variable used to be the size of the list 
+		String[] filmList = new String[listSize]; // String that will carry the list of films​
+		int i = 5, x = 0; // variables that will be used into loops​
+		int userOption = 5; // variable that will be used to save the option of the user​
+		String addFilm = ""; 
+
+		for (i = 0; i < listSize; i++) // loop used to initiate all the positions of the string with no characted,​
+		// getting rid of the "null".​
+		{
+			filmList[i] = "";
+		}
+		// for (int i = 0 ; i<=5 ; i++) // old loop - swapped for the following while​
+		// main loop​
+		while (userOption != 0) {
+			userOption = 0;
+			System.out.println("\n_____________________________________________________________\n"
+					+ "********** Welcome to My Favourite Films **********\n" + "Please select one of the following:\n"
+					+ "1. Add a Film Title to the list\n" + "2. Delete a Film Title from the list\n"
+					+ "3. Check if a Film Title is on the list\n" + "4. View all Film Titles on the list\n"
+					+ "5. Search more about a movie\n\n"
+					+ "0. Exit");
+			userOption = sc.nextInt();
+			if (userOption == 1) {
+				System.out.println("What position of the list you wish to add? It from 1 to " + listSize + "!");
+				x = sc.nextInt();
+				if (x < 1 || x > 5 ) {
+					System.out.println("You have chosen an invalid position, please try again using numbers from 1 to 5 only.");
+					continue;
+				}
+				x--;
+				if (!filmList[x].equals("")) {
+					System.out.println("\nThis position is already taken. Use the option 2 of the menu to erase it!\n");
+					continue;
+				} else {
+					System.out.println(x + "\nWhat is the title of the film? ");
+					addFilm = sc.nextLine();
+					addFilm = sc.nextLine(); // test1 -  I don't know why it was not reading with only one sc command.
+				}
+
+				int equal = 0;
+
+				// if (!filmList[x].equals("")) {
+				for (i = 0; i < listSize; i++) {
+					if ((addFilm.equalsIgnoreCase(filmList[i]))) // (film.equals(filmList[i])) -​
+
+					// (film.equals(filmList[i]))​
+					{
+						System.out.println(
+								"\nThis film is already in the position " + i + ", so it will not be added again!");
+						equal = 1;
+						// filmList[x] = "";
+
+					}
+					// else { System.out.println("This film is not on the list!");}
+					// System.out.println(i + ": " + filmList[i]);​
+				}
+
+				if (equal != 1) {
+					filmList[x] = addFilm;
+				}
+				// }
+
+				// System.out.println(filmList[x]); // 2 prints created for testing purposes
+				// System.out.println("\n\n\n");
+
+			} else if (userOption == 2) {
+				System.out.println("Type the position of the list bellow you wish to remove: \n");
+				for (i = 0; i < listSize; i++) {
+					System.out.println(i + 1 + ": " + filmList[i]);
+				}
+
+				x = sc.nextInt();
+				if (x < 1 || x > 5 ) {
+					System.out.println("You have chosen an invalid position, please try again using numbers from 1 to 5 only.");
+					continue;
+				}
+				x--;
+				filmList[x] = "";
+				System.out.println("\nThe new list is now: \n");
+				for (i = 0; i < listSize; i++) {
+					System.out.println(i + 1 + ": " + filmList[i]);
+				}
+			} else if (userOption == 3) {
+				String film = "";
+				System.out.println("Enter the name of the film you want to check: \n");
+				film = sc.nextLine();
+				film = sc.nextLine();
+				int equal = 0;
+				for (i = 0; i < listSize; i++) {
+					if (film.equalsIgnoreCase(filmList[i])) // (film.equals(filmList[i])) -​
+					// (film.equalsIgnoreCase(filmList[i]))​
+					{
+						System.out.println("\nThis film is the same of the position " + (i + 1) + ".");
+						equal = 1;
+					}
+					// else { System.out.println("This film is not on the list!");}​
+					// System.out.println(i + ": " + filmList[i]);​
+				}
+				if (equal != 1) {
+					System.out.println("This film is not on the list yet!");
+				}
+			} else if (userOption == 4) {
+				for (i = 0; i < listSize; i++) {
+					System.out.println(i + 1 + ": " + filmList[i]);
+				}
+			} else if (userOption == 5) {
+				System.out.println("\nFrom the following list, about what film you want to read more?\n\n");
+				for (i = 0; i < listSize; i++) {
+					if (!filmList[i].equals("")) {
+						System.out.println(i + 1 + ": " + filmList[i]);
+					}
+				}
+				int readMore = sc.nextInt(); // variable used to read from the user which film which will show the URL
+				if (readMore < 1 || readMore > 5 ) {
+					System.out.println("You have chosen an invalid position, please try again using numbers from 1 to 5 only.");
+					continue;
+				}
+				readMore--;
+				System.out.println("\nCool! So just copy and paste the below link into your browser: \nhttps://duckduckgo.com/?q=%5C"+filmList[readMore].replaceAll("\\s+","+")); //swapping spaces for + sing for the URL
+				
+				
+			} else if (userOption == 0 ) {
+				System.out.println("\n###  Thanks for using the film program! Just start again if you wish to start again!  ###\n");
+			} else {
+				System.out.println(
+						"\nThe option " + userOption + " does not match with any of the above, please choose again!\n");
+			}
+		
+		}
+
+	}
+}
