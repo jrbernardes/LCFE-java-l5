@@ -31,18 +31,13 @@ def addProduct():
   print(f'\n**Product {name} added successfully!**\n')
   global size
   size += 1
-  index = size-1
-  print(f"\nProduct ID: {productIds[index]}")
-  print(f"Product Name: {productNames[index]}")
-  print(f"Product Stock Level: {productStocklevel[index]}")
-  print(f"Product Reorder Level: {productReorders[index]}")
 
 
 def validateIndex(index):
   if index >= 0 and index < size:
     return (True)
   else:
-    print('=> Index "+index+" is not valid.')
+    print('=> Index "+index+" is not valid.\n')
     return(False)
 
 
@@ -51,7 +46,7 @@ def getProductIndex(pid):
   global productIds
 #  print(size)
   for i in range(size):
-    print(productIds[i])
+#    print(productIds[i])
     if productIds[i] == pid:
       return(i)
   return(False)
@@ -62,38 +57,45 @@ def printProduct(index):
   global productNames
   global productStocklevel
   global productReorders
-  print(f"\nProduct ID: {productIds[index]}")
-  print(f"Product Name: {productNames[index]}")
-  print(f"Product Stock Level: {productStocklevel[index]}")
-  print(f"Product Reorder Level: {productReorders[index]}")
+  print('-'*30)
+  print(f'| Product ID: {productIds[index]}')
+  print(f'| Product Name: {productNames[index]}')
+  print(f'| Product Stock Level: {productStocklevel[index]}')
+  print(f'| Product Reorder Level: {productReorders[index]}')
+  
 
 
 # --- Main program ---	
 
 while True:
   print('*** Select from Menu ***')
-  print("1. Add a product")
-  print("2. Display product details")
-  print("3. Update product details")
-  print("4. Display products with low stock")
-  print("5. Delete a product")
-  print("6. Display details of all products")
-  print('0. Exit program!')
-  option=int((input()))
+  print('1. Add a product -- **WORKING**')
+  print('2. Display product details -- **WORKING**')
+  print('3. Update product details')
+  print('4. Display products with low stock')
+  print('5. Delete a product')
+  print('6. Display details of all products -- **WORKING**')
+  print('0. Exit program! -- **WORKING**')
+  option=input()
+  if option.isnumeric() == True:
+    option=int(option)
+  else:
+    print('\n*** Option not valid! You likely did not enter a number from 0 to 6! Please try again! ***\n')
+
   if option==0:
     break
-  if option==1:
+  elif option==1:
     addProduct()
 
 
-  if option==2:
-    print("\n* Displaying Product Details *")
-    pid=input(print("Enter Product ID: "))
+  elif option==2:
+    print('\n* Displaying Product Details *')
+    pid=input(print('Enter Product ID: '))
     productIndex=getProductIndex(pid)
-    print('Is productIndex False? - ',productIndex)
-    print(type(productIndex))
+#    print('Is productIndex False? - ',productIndex)
+#    print(type(productIndex))
     if productIndex is False:
-      print(">Product ID "+pid+" was not found.")
+      print('\n>Product ID '+pid+' was not found.\n')
     else:
       printProduct(productIndex)
 
@@ -103,19 +105,9 @@ while True:
 
 #  if option==5:
 
-  if option==6:
-    print("\n* Displaying the Product Details *")
+  elif option==6:
+    print('\n* Displaying the Product Details *')
 #    print(range(len(size-1)))
     for i in range(size):
-      '''
-      index=i
-      global productIds
-      global productNames
-      global productStocklevel
-      global productReorders
-      print(f"\nProduct ID: {productIds[index]}")
-      print(f"Product Name: {productNames[index]}")
-      print(f"Product Stock Level: {productStocklevel[index]}")
-      print(f"Product Reorder Level: {productReorders[index]}")
-      '''
       printProduct(i)
+    print('-'*30+'\n')
