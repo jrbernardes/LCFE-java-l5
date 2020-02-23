@@ -1,3 +1,4 @@
+# ---- variables -----
 size = int(0)
 # products[10],[4]
 option = int()
@@ -11,8 +12,8 @@ productStocklevel=[]
 
 productReorders=[]
 
-# ----- functions -----
 
+# ----- functions -----
 def addProduct():
   global productIds
   global productNames
@@ -35,7 +36,7 @@ def addProduct():
   print(f"Product Name: {productNames[index]}")
   print(f"Product Stock Level: {productStocklevel[index]}")
   print(f"Product Reorder Level: {productReorders[index]}")
-  
+
 
 def validateIndex(index):
   if index >= 0 and index < size:
@@ -44,15 +45,17 @@ def validateIndex(index):
     print('=> Index "+index+" is not valid.')
     return(False)
 
+
 def getProductIndex(pid):
   global size
   global productIds
 #  print(size)
-  for i in range(size-1):
-    print(productsIds[i])
-    if productsIds[i] == pid:
+  for i in range(size):
+    print(productIds[i])
+    if productIds[i] == pid:
       return(i)
   return(False)
+
 
 def printProduct(index):
   global productIds
@@ -63,7 +66,10 @@ def printProduct(index):
   print(f"Product Name: {productNames[index]}")
   print(f"Product Stock Level: {productStocklevel[index]}")
   print(f"Product Reorder Level: {productReorders[index]}")
-	
+
+
+# --- Main program ---	
+
 while True:
   print('*** Select from Menu ***')
   print("1. Add a product")
@@ -84,7 +90,9 @@ while True:
     print("\n* Displaying Product Details *")
     pid=input(print("Enter Product ID: "))
     productIndex=getProductIndex(pid)
-    if(productIndex==False):
+    print('Is productIndex False? - ',productIndex)
+    print(type(productIndex))
+    if productIndex is False:
       print(">Product ID "+pid+" was not found.")
     else:
       printProduct(productIndex)
@@ -97,7 +105,9 @@ while True:
 
   if option==6:
     print("\n* Displaying the Product Details *")
-    for i in range(size-1):
+#    print(range(len(size-1)))
+    for i in range(size):
+      '''
       index=i
       global productIds
       global productNames
@@ -107,7 +117,5 @@ while True:
       print(f"Product Name: {productNames[index]}")
       print(f"Product Stock Level: {productStocklevel[index]}")
       print(f"Product Reorder Level: {productReorders[index]}")
+      '''
       printProduct(i)
-		
-
-#def getProductIndex(Id):
