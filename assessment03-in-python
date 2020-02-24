@@ -52,6 +52,17 @@ def getProductIndex(pid):
   return(False)
 
 
+def checkNameExists(name):
+  global size
+  global productNames
+#  print(size)
+  for i in range(size):
+#    print(productIds[i])
+    if productNames[i] == name:
+      return(i)
+  return(False)
+
+
 def printProduct(index):
   global productIds
   global productNames
@@ -62,6 +73,44 @@ def printProduct(index):
   print(f'| Product Name: {productNames[index]}')
   print(f'| Product Stock Level: {productStocklevel[index]}')
   print(f'| Product Reorder Level: {productReorders[index]}')
+
+'''
+def checkIdExists(pid):
+	exists = 0
+  for i in range(size):
+    if productIds[i] == (pid):
+      print(f"\n*** This product ID already exists in the position {i}! ***\n*** Please start again from the beginning with a unique ID! ***')
+			exists = 1
+	
+  return exists
+'''
+
+def updateProduct():
+  print('\n* Update a Product *')
+  pid=input(print('Enter Product ID: '))
+  productIndex = getProductIndex(pid)
+  #print(productIndex)
+  if productIndex is False:
+    print(f'> Product {pid} was not found.\n')
+    return
+  else:
+    pid = input(print('Enter Updated Product ID: '))
+    name = input(print('Enter Updated Product Name: '))
+    stock = int(input(print('Enter Updated Product Stock Level: ')))
+    reorder = int(input(print('Enter Updated Product Level: ')))
+ 
+  if stock>=0 and reorder >=0:
+    print(checkNameExists(name))
+    if checkNameExists(name) is False:
+      productIds[productIndex] = pid
+      productNames[productIndex] = name
+      productStocklevel[productIndex] = stock
+      productReorders[productIndex] = reorder
+      print('\n> Product updated successfully.\n')
+    else:
+      print(f'=> Product name "{name}" already exists in position #{checkNameExists(name)+1} with the "{productIds[checkNameExists(name)]}" ID!\n')
+  else:
+    print('=> Integer values should not be negative. ')
   
 
 
@@ -71,7 +120,7 @@ while True:
   print('*** Select from Menu ***')
   print('1. Add a product -- **WORKING**')
   print('2. Display product details -- **WORKING**')
-  print('3. Update product details')
+  print('3. Update product details -- **WORKING**')
   print('4. Display products with low stock')
   print('5. Delete a product')
   print('6. Display details of all products -- **WORKING**')
@@ -99,7 +148,9 @@ while True:
     else:
       printProduct(productIndex)
 
-#  if option==3:
+  elif option==3:
+    updateProduct()
+
 
 #  if option==4:
 
