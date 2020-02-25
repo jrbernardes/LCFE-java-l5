@@ -118,13 +118,13 @@ def updateProduct():
 
 while True:
   print('*** Select from Menu ***')
-  print('1. Add a product -- **WORKING**')
-  print('2. Display product details -- **WORKING**')
-  print('3. Update product details -- **WORKING**')
+  print('1. Add a product')
+  print('2. Display product details')
+  print('3. Update product details')
   print('4. Display products with low stock')
   print('5. Delete a product')
-  print('6. Display details of all products -- **WORKING**')
-  print('0. Exit program! -- **WORKING**')
+  print('6. Display details of all products')
+  print('0. Exit program!')
   option=input()
   if option.isnumeric() == True:
     option=int(option)
@@ -151,14 +151,33 @@ while True:
   elif option==3:
     updateProduct()
 
+  elif option==4:
+    print('\n* Displaying products with Low Stock * ')
+    for i in range(size):
+      if productStocklevel[i] <= productReorders[i]:
+        printProduct(i);
+    print('-'*30+'\n')
 
-#  if option==4:
+  elif option==5:
+    print('\n* Deleting the Product *')
+    pid = input(print('Enter Product ID: '))
+    productIndex = getProductIndex(pid)
+    if productIndex is False:
+      print(f'> Product ID "{pid}" was not found.')
+    else:
+      del productIds[productIndex]
+      del productNames[productIndex]
+      del productStocklevel[productIndex]
+      del productReorders[productIndex]
+    size -= 1
+    print(f'\n> Product ID "{pid}" deleted successfully.\n')
 
-#  if option==5:
 
-  elif option==6:
+  elif option==6:    
+    if len(productIds) == 0:
+      print('\n***    The product`s list is still empty!   ***\n*** Please add at least on product to list! ***\n')
+      continue
     print('\n* Displaying the Product Details *')
-#    print(range(len(size-1)))
     for i in range(size):
       printProduct(i)
     print('-'*30+'\n')
